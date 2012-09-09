@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Book Your Dinner | Zynga Beijing</title>
+    <link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="css/index.css" rel="stylesheet">
+    <script src="../common/js/sprintf.js"></script>
+    <script src="../common/js/jquery-1.7.2.js"></script>
+    <script src="../common/bootstrap/js/bootstrap.js"></script>
+    <script src="js/index.js"></script>
+  </head>
+
+
+  <body>
+    <header class="big-head">
+      <div class="container">
+        <h1>Dinner Booking@Zynga</h1>
+        <p class="lead">Book your dinner here every work day before 
+<span id="deadline"><?= BOOKING_DEADLINE?></span>. You can cancel your booking before that time. 
+After <?= BOOKING_DEADLINE?>, you can transfer your booking to others as long as they accept.</p>
+      </div>
+    </header>
+
+    <!-- left navigation bar -->
+    <ul class="nav nav-list nav-stacked affix" id="left-nav">
+      <li><a href="#unbooked-header"><i class="icon-chevron-right"></i> Not Booked</a></li>
+      <li><a href="#booked-header"><i class="icon-chevron-right"></i> Existing Orders</a></li>
+      <li><a href="#discarded-header"><i class="icon-chevron-right"></i> Discarded Orders</a></li>
+      <li><a href="faq.html" target="_blank"><i class="icon-chevron-right"></i> FAQ</a></li>
+    </ul>
+
+    <!-- Unbooked user area-->
+    <div class="container">
+      <div class="page-header" id="unbooked-header">
+        <span>Employee who haven't booked today(<span id="unbooked-count"><?= count($unbooked_list)?></span>)</span>
+        <input class="searchbox" placeholder="Search"/>
+      </div>
+      <div class="button-container" id="unbooked-btn-container">
+        <?php
+           foreach ($unbooked_list as $user) {
+           echo "<span class='unbooked-btn-merit hide'>$user</span>";
+           }
+           ?>
+      </div>
+
+      <!-- Booked user area-->
+      <div class="page-header" id="booked-header">
+        <span>Employee who have successfully booked(<span id="booked-count"><?= count($booked_list)?></span>)</span>
+        <input class="searchbox" placeholder="Search"/>
+      </div>
+      <div class="button-container" id="booked-btn-container">
+        <?php
+           foreach ($booked_list as $user) {
+           echo "<span class='booked-btn-merit hide'>$user</span>";
+           }
+           ?>
+      </div>
+
+    <!-- Discarded user area-->
+      <div class="page-header" id="discarded-header">
+        <span>Bookings waiting to be transfered(<span id="discarded-count"><?= count($discarded_list)?></span>)</span>
+        <p>You can claim one of them if you want to. If they are left there, it's likely to be wasted.</p>
+      </div>
+      <div class="button-container" id="discarded-btn-container">
+        <?php
+           foreach ($discarded_list as $user) {
+           echo "<span class='discarded-btn-merit hide'>$user</span>";
+           }
+           ?>
+      </div>
+    </div>
+
+    <!-- Hidden stuff, serve as templates, includes:
+         1. Modal for interaction with user.
+         2. Unbooked user button template.
+         3. Booked user button template.
+         4. Button template for who want to transfer their order..
+         5. Mockup background during Ajax loading.
+      -->
+    <div class="modal hide fade" id="modal-div" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+        <h3 id="modal-title">Info</h3>
+      </div>
+      <div class="modal-body" id="modal-body">
+        
+      </div>
+      <div class="modal-footer" id="modal-footer">
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true" id="modal-dismiss">Dismiss</button>
+      </div>
+    </div>
+
+    <div class="btn-group hide name-btn" id="unbooked-btn-templated">
+      <button class="btn btn-primary name-pill">Joker</button>
+      <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a class="book-anchor">Book Now</a></li>
+      </ul>
+    </div>
+
+    <div class="btn-group hide name-btn" id="booked-btn-templated">
+      <button class="btn btn-success name-pill">Joker</button>
+      <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a class="unbook-anchor">Cancel</a></li>
+      </ul>
+    </div>
+
+    <div class="btn-group hide name-btn" id="discarded-btn-templated">
+      <button class="btn btn-warning name-pill">Joker</button>
+      <button class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+      <ul class="dropdown-menu">
+        <li><a class="claim-anchor">Claim</a></li>
+      </ul>
+    </div>
+
+    <div class="loading-modal" id="loading-modal">
+      <img src="img/loading-gear.gif" id="loading-gear"/>
+    </div>
+  </body>
+</html>
