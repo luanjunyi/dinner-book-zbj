@@ -65,7 +65,7 @@ div.loading-modal {
 }
 
 #left-nav {
-    left: 70px;
+    right: 1370px;
     top: 200px;
     width: 200px;
     border: solid 1px #DDD;
